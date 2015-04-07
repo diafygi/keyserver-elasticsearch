@@ -8,6 +8,11 @@ pool). This pool is what is GPG uses by default to fetch public keys when using
 `gpg --recv-key`. The purpose of this elasticsearch project is to let people do
 data analysis on the keys in the pool.
 
+NOTE: Do not rely on elasticsearch's `_id` for looking up keys! I will be
+refreshing the database with a new dump regularly, which will create completely
+new elasticsearch ids for the keys (it's easier to blow away and recreate than
+try and find/update based on fingerprint).
+
 ### Document format
 
 The keys loaded into the index are based on the output from my [openpgp.py](https://github.com/diafygi/openpgp-python)

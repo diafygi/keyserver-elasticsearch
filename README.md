@@ -33,9 +33,9 @@ https://github.com/diafygi/openpgp-python#output-formats
 The server this runs on isn't super powerful, so if you want to run some heavy
 queries, you may want to setup a local copy on your system. Here's how.
 
-1. Setup elasticsearch on your [local machine](http://www.elastic.co/guide/en/elasticsearch/guide/master/_installing_elasticsearch.html).
+Step 1: Setup elasticsearch on your [local machine](http://www.elastic.co/guide/en/elasticsearch/guide/master/_installing_elasticsearch.html).
 
-2. Download openpgp.py.
+Step 2: Download openpgp.py.
 
 ```sh
 mkdir ~/opengpg-python
@@ -43,7 +43,7 @@ cd ~/openpgp-python
 wget https://raw.githubusercontent.com/diafygi/openpgp-python/master/openpgp.py > openpgp.py
 ```
 
-3. Download the latest SKS keyserver dump (this will take a while).
+Step 3: Download the latest SKS keyserver dump (this will take a while).
 
 ```sh
 mkdir ~/dump
@@ -52,7 +52,7 @@ wget -c -r -p -e robots=off --timestamping --level=1 --cut-dirs=3 \
 --no-host-directories http://keyserver.mattrude.com/dump/current/
 ```
 
-4. Parse keyserver dump to json gzip files (split every 1000 lines) (this will take several hours).
+Step 4: Parse keyserver dump to json gzip files (split every 1000 lines) (this will take several hours).
 
 ```sh
 ls -1 ~/dump/*.pgp | \
@@ -60,7 +60,7 @@ xargs -I % sh -c "python ~/openpgp-python/openpgp.py --merge-public-keys '%' | \
 split -l 1000 -d --filter 'gzip -9 > $FILE.gz' - '%.json.'"
 ```
 
-5. Bulk index each gzip file into elasticsearch (this will take several hours).
+Step 5: Bulk index each gzip file into elasticsearch (this will take several hours).
 
 ```sh
 ls -1 ~/dump/*.json.*.gz | \

@@ -45,7 +45,7 @@ cd ~/openpgp-python
 wget https://raw.githubusercontent.com/diafygi/openpgp-python/master/openpgp.py > openpgp.py
 ```
 
-Step 3: Download the latest SKS keyserver dump (this will take a while).
+Step 3: Download the latest SKS keyserver dump (this will take a while, ~7GB).
 
 ```sh
 mkdir ~/dump
@@ -54,7 +54,7 @@ wget -c -r -p -e robots=off --timestamping --level=1 --cut-dirs=3 \
 --no-host-directories http://keyserver.mattrude.com/dump/current/
 ```
 
-Step 4: Parse keyserver dump to json gzip files (split every 1000 lines) (this will take several hours).
+Step 4: Parse keyserver dump to json gzip files (split every 1000 lines) (this will take several hours, ~16GB).
 
 ```sh
 ls -1 ~/dump/*.pgp | \
@@ -62,7 +62,7 @@ xargs -I % sh -c "python ~/openpgp-python/openpgp.py --merge-public-keys '%' | \
 split -l 1000 -d --filter 'gzip -9 > $FILE.gz' - '%.json.'"
 ```
 
-Step 5: Bulk index each gzip file into elasticsearch (this will take several hours).
+Step 5: Bulk index each gzip file into elasticsearch (this will take several hours, ~100GB).
 
 ```sh
 ls -1 ~/dump/*.json.*.gz | \

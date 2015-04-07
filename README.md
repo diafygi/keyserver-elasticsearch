@@ -13,6 +13,8 @@ refreshing the database with a new dump regularly, which will create completely
 new elasticsearch ids for the keys (it's easier to blow away and recreate than
 try and find/update based on fingerprint).
 
+Current dump from: Sun Apr 5 05:02:58 UTC 2015
+
 ### Document format
 
 The keys loaded into the index are based on the output from my [openpgp.py](https://github.com/diafygi/openpgp-python)
